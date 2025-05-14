@@ -1,0 +1,7 @@
+<div>
+    <div class="mensajes">
+        @for (mensaje of mensajes; track mensaje) {
+            <app-mensaje-b [mensaje]="mensaje"></app-mensaje-b>
+        }
+    </div>
+</div>

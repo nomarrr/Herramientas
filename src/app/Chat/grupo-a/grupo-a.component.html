@@ -1,0 +1,8 @@
+<div>
+    <label>{{nombre}}</label>
+    <div class="mensajes">
+        @for (mensaje of mensajes; track mensaje) {
+            <app-mensaje-a [mensaje]="mensaje"></app-mensaje-a>
+        }
+    </div>
+</div>

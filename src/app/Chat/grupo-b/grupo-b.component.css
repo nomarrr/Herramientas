@@ -1,0 +1,13 @@
+.mensajes {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Espacio entre mensajes */
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho disponible */
+}
+
+/* Añade esta regla para los componentes mensaje */
+app-mensaje-b {
+    width: 100%; /* Cambiamos a width: 100% */
+    display: flex;
+    justify-content: flex-end; /* Añadimos esta línea */
+}

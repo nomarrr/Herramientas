@@ -1,0 +1,80 @@
+.formulario-container {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.campo-formulario {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: #65676B;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #E4E6EB;
+  border-radius: 20px;
+  box-sizing: border-box;
+  font-size: 15px;
+  background-color: #F0F2F5;
+  transition: all 0.3s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: #0084FF;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 2px rgba(0, 132, 255, 0.2);
+}
+
+button {
+  background-color: #0084FF;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+button:disabled {
+  background-color: #E4E6EB;
+  color: #BCC0C4;
+  cursor: not-allowed;
+}
+
+button:hover:not(:disabled) {
+  background-color: #0070DA;
+}
+
+/* Agregamos animación al hacer focus en los inputs */
+.campo-formulario:focus-within label {
+  color: #0084FF;
+}
+
+/* Estilo para cuando hay error de validación */
+input.ng-invalid.ng-touched {
+  border-color: #FF4E4E;
+  background-color: #FFF5F5;
+}
+
+/* Mensaje de error */
+.error-mensaje {
+  color: #FF4E4E;
+  font-size: 12px;
+  margin-top: 5px;
+  margin-left: 12px;
+}

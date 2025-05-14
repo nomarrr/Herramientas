@@ -1,0 +1,29 @@
+<div class="header">Nombre de proyecto</div>
+<div style="display: none">
+    {{mensajesAgrupados | json}}
+</div>
+<div class="mensajes">
+    @for (grupo of mensajesAgrupados; track grupo.fecha) {
+        @if (grupo.usuario !== usuarioActual) {
+            <app-grupo-a 
+                [nombre]="grupo.usuario" 
+                [mensajes]="grupo.mensajes">
+            </app-grupo-a>
+        } @else {
+            <app-grupo-b 
+                [nombre]="grupo.usuario" 
+                [mensajes]="grupo.mensajes">
+            </app-grupo-b>
+        }
+    }
+</div>
+<div class="input-container">
+    <input 
+        type="text" 
+        [(ngModel)]="mensajeNuevo" 
+        (keyup.enter)="enviarMensaje()"
+        placeholder="Escribe un mensaje...">
+    <button (click)="enviarMensaje()">
+        <img src="/img/send.png">
+    </button>
+</div>
