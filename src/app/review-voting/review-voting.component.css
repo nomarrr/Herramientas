@@ -1,0 +1,144 @@
+.review-voting-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  min-height: calc(100vh - 40px);
+}
+
+.header {
+  margin-bottom: 30px;
+}
+
+.header h2 {
+  color: #2c3e50;
+  font-size: 28px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.actions {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.results-container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.selected-categories,
+.non-selected-categories {
+  margin-bottom: 30px;
+}
+
+.selected-categories h3,
+.non-selected-categories h3 {
+  color: #2c3e50;
+  font-size: 20px;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.category-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.category-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.category-card.selected {
+  border: 2px solid #28a745;
+}
+
+.category-card mat-card-header {
+  padding: 16px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.category-card mat-card-title {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.category-card mat-card-subtitle {
+  color: #868e96;
+  font-size: 14px;
+}
+
+.voters-list {
+  padding: 16px;
+}
+
+.voters-list h4 {
+  color: #2c3e50;
+  margin: 0 0 12px 0;
+  font-size: 16px;
+}
+
+.voters-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.voters-list li {
+  padding: 8px 0;
+  border-bottom: 1px solid #e9ecef;
+  color: #495057;
+  font-size: 14px;
+}
+
+.voters-list li:last-child {
+  border-bottom: none;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #868e96;
+}
+
+.empty-state mat-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.empty-state p {
+  margin: 0;
+  font-size: 16px;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .categories-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .actions button {
+    width: 100%;
+  }
+} 

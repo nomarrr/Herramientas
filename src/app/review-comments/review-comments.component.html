@@ -1,0 +1,71 @@
+<div class="commenter-container">
+  <div class="header">
+    <h2>
+      💬 Revisión de Comentarios
+    </h2>
+  </div>
+
+  <div class="categorias-container">
+    <mat-accordion>
+      <mat-expansion-panel *ngFor="let categoria of categorias" class="categoria-panel">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{categoria.nombre}}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{(comentarios[categoria.id] || []).length}} comentarios
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <!-- Sección de Ideas -->
+        <div class="ideas-section">
+          <h3>
+            <span class="icon">💡</span>
+            Ideas en esta categoría
+            <span class="contador" *ngIf="ideas && ideas[categoria.id]">
+              {{ideas[categoria.id].length}}
+            </span>
+          </h3>
+          
+          <div class="ideas-grid" *ngIf="ideas && ideas[categoria.id] && ideas[categoria.id].length > 0">
+            <div class="idea-card" *ngFor="let idea of ideas[categoria.id]">
+              <div class="idea-content">
+                <div class="idea-header">
+                  <span class="idea-texto">{{idea.texto}}</span>
+                </div>
+                <div class="idea-footer">
+                  <span class="idea-autor">Por: {{idea.autor}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="empty-state" *ngIf="!ideas || !ideas[categoria.id] || ideas[categoria.id].length === 0">
+            <span class="icon">📝</span>
+            <p>No hay ideas en esta categoría</p>
+          </div>
+        </div>
+
+        <!-- Lista de comentarios -->
+        <div class="comentarios-lista">
+          <h3>
+            <span class="icon">💬</span>
+            Comentarios
+          </h3>
+
+          <div class="empty-state" *ngIf="!comentarios[categoria.id] || comentarios[categoria.id].length === 0">
+            <span class="icon">📭</span>
+            <p>No hay comentarios en esta categoría</p>
+          </div>
+
+          <div class="comentario-card" *ngFor="let comentario of comentarios[categoria.id]">
+            <div class="comentario-header">
+              <span class="comentario-usuario">Usuario ID: {{comentario.idUsuario}}</span>
+            </div>
+            <div class="comentario-texto">{{comentario.comentarios}}</div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div> 

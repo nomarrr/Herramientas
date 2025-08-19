@@ -1,0 +1,97 @@
+<div class="categorizer-container">
+  <div class="header">
+    <h2>
+      📁 Categorización de Ideas
+    </h2>
+    <div class="nueva-categoria">
+      <mat-form-field appearance="outline">
+        <mat-label>Nueva Categoría</mat-label>
+        <input matInput [(ngModel)]="nuevaCategoria" placeholder="Ingrese el nombre de la categoría">
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="crearCategoria()">
+        ➕
+        <span>Crear Categoría</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <!-- Panel de Ideas Disponibles -->
+    <div class="panel">
+      <div class="panel-header">
+        <h3>
+          💡 Ideas Disponibles
+          <span class="contador">{{getIdeasDisponibles().length}}</span>
+        </h3>
+      </div>
+      <div class="ideas-lista" 
+           cdkDropList 
+           #ideasList="cdkDropList" 
+           [cdkDropListData]="getIdeasDisponibles()"
+           [cdkDropListConnectedTo]="allDropListIds"
+           (cdkDropListDropped)="onDrop($event)"
+           id="ideasList">
+        <div class="idea-card" 
+             *ngFor="let idea of getIdeasDisponibles()" 
+             cdkDrag
+             [cdkDragData]="idea">
+          <div class="idea-content">
+            <div class="idea-header">
+              <span class="idea-texto">{{idea.texto}}</span>
+              <span class="drag-handle">↕️</span>
+            </div>
+            <div class="idea-footer">
+              <span class="idea-autor">Por: {{idea.autor}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="empty-state" *ngIf="getIdeasDisponibles().length === 0">
+          ✅
+          <p>Todas las ideas han sido categorizadas</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid de Categorías -->
+    <div class="categorias-grid">
+      <div class="categoria" *ngFor="let categoria of categorias">
+        <div class="categoria-header">
+          <h4>{{categoria.nombre}}</h4>
+          <div class="categoria-actions">
+            <button mat-icon-button 
+                    color="warn" 
+                    (click)="eliminarCategoria(categoria.id)" 
+                    matTooltip="Eliminar categoría">
+              🗑️
+            </button>
+          </div>
+        </div>
+        <div class="ideas-categoria" 
+             [id]="categoria.id.toString()" 
+             cdkDropList
+             [cdkDropListData]="categoria.ideas"
+             [cdkDropListConnectedTo]="allDropListIds"
+             (cdkDropListDropped)="onDrop($event)">
+          <div class="idea-card" 
+               *ngFor="let idea of categoria.ideas" 
+               cdkDrag
+               [cdkDragData]="idea">
+            <div class="idea-content">
+              <div class="idea-header">
+                <span class="idea-texto">{{idea.texto}}</span>
+                <span class="drag-handle">↕️</span>
+              </div>
+              <div class="idea-footer">
+                <span class="idea-autor">Por: {{idea.autor}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="empty-state" *ngIf="categoria.ideas.length === 0">
+            📁
+            <p>Arrastra ideas aquí</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -25,6 +25,6 @@ export class InfoUsuarioComponent {
 
   onSubmit() {
     this.usuarioService.setUsuario(this.usuario);
-    this.router.navigate(['/chat']);
+    this.router.navigate(['/menu']);
   }
 }

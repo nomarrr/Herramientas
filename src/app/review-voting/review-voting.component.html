@@ -1,0 +1,76 @@
+<div class="review-voting-container">
+  <div class="header">
+    <h2>
+      <mat-icon>how_to_vote</mat-icon>
+      Revisión de Votación
+    </h2>
+  </div>
+
+  <div class="actions" *ngIf="!cargando">
+    <button mat-raised-button color="primary" (click)="iniciarSegundaRonda()" matTooltip="Iniciar una nueva ronda de votación">
+      <mat-icon>refresh</mat-icon>
+      Iniciar Segunda Ronda
+    </button>
+    <button mat-raised-button color="accent" (click)="finalizarVotacion()" matTooltip="Finalizar el proceso de votación">
+      <mat-icon>check_circle</mat-icon>
+      Finalizar Votación
+    </button>
+  </div>
+
+  <mat-progress-bar mode="indeterminate" *ngIf="cargando"></mat-progress-bar>
+
+  <div class="results-container" *ngIf="!cargando">
+    <div class="selected-categories" *ngIf="getCategoriasSeleccionadas().length > 0">
+      <h3>Categorías Seleccionadas (≥ 60%)</h3>
+      <div class="categories-grid">
+        <mat-card *ngFor="let categoria of getCategoriasSeleccionadas()" class="category-card selected">
+          <mat-card-header>
+            <mat-card-title>{{categoria.nombreCategoria}}</mat-card-title>
+            <mat-card-subtitle>
+              Votos: {{categoria.votosTotales}} ({{categoria.porcentajeVotos}}%)
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="voters-list">
+              <h4>Votantes:</h4>
+              <ul>
+                <li *ngFor="let votante of categoria.votantes">
+                  {{votante.nombreUsuario}} - {{votante.fechaVoto | date:'short'}}
+                </li>
+              </ul>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+    <div class="non-selected-categories" *ngIf="getCategoriasNoSeleccionadas().length > 0">
+      <h3>Categorías No Seleccionadas (< 60%)</h3>
+      <div class="categories-grid">
+        <mat-card *ngFor="let categoria of getCategoriasNoSeleccionadas()" class="category-card">
+          <mat-card-header>
+            <mat-card-title>{{categoria.nombreCategoria}}</mat-card-title>
+            <mat-card-subtitle>
+              Votos: {{categoria.votosTotales}} ({{categoria.porcentajeVotos}}%)
+            </mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="voters-list">
+              <h4>Votantes:</h4>
+              <ul>
+                <li *ngFor="let votante of categoria.votantes">
+                  {{votante.nombreUsuario}} - {{votante.fechaVoto | date:'short'}}
+                </li>
+              </ul>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+    <div class="empty-state" *ngIf="resultadosVotacion.length === 0">
+      <mat-icon>info</mat-icon>
+      <p>No hay resultados de votación para mostrar</p>
+    </div>
+  </div>
+</div> 
