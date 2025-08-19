@@ -241,25 +241,7 @@ export class CategorizerComponent implements OnInit {
       const targetCategoria = this.categorias.find(c => c.id.toString() === targetContainerId);
       const previousCategoria = this.categorias.find(c => c.id.toString() === previousContainerId);
 
-      if (targetContainerId === 'ideasList') {
-        idea.categoria = undefined;
-        if (!this.ideas.some(i => i.id === idea.id)) {
-          this.ideas.push({...idea, categoria: undefined});
-        }
-      } else if (targetCategoria) {
-        if (!targetCategoria.ideas.some(i => i.id === idea.id)) {
-          idea.categoria = targetCategoria.nombre;
-          this.ideas = this.ideas.filter(i => i.id !== idea.id);
-        }
-      }
-
-      if (previousCategoria) {
-        previousCategoria.ideas = previousCategoria.ideas.filter(i => i.id !== idea.id);
-        if (targetContainerId === 'ideasList') {
-          this.ideas.push({...idea, categoria: undefined});
-        }
-      }
-
+      // Primero hacer el transferArrayItem para que Angular maneje el movimiento visual
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
@@ -267,6 +249,35 @@ export class CategorizerComponent implements OnInit {
         event.currentIndex
       );
 
+      // Luego actualizar nuestros arrays locales
+      if (targetContainerId === 'ideasList') {
+        // Remover la idea de la categoría anterior
+        if (previousCategoria) {
+          previousCategoria.ideas = previousCategoria.ideas.filter(i => i.id !== idea.id);
+        }
+        
+        // Asegurar que la idea esté en ideas disponibles
+        if (!this.ideas.some(i => i.id === idea.id)) {
+          this.ideas.push({...idea, categoria: undefined});
+        }
+      } else if (targetCategoria) {
+        // Si viene de la lista de ideas disponibles
+        if (previousContainerId === 'ideasList') {
+          // Remover la idea de la lista de ideas disponibles
+          this.ideas = this.ideas.filter(i => i.id !== idea.id);
+        } else if (previousCategoria) {
+          // Remover la idea de la categoría anterior
+          previousCategoria.ideas = previousCategoria.ideas.filter(i => i.id !== idea.id);
+        }
+        
+        // Asegurar que la idea esté en la categoría destino
+        if (!targetCategoria.ideas.some(i => i.id === idea.id)) {
+          idea.categoria = targetCategoria.nombre;
+          targetCategoria.ideas.push(idea);
+        }
+      }
+
+      // Actualizar en el backend
       if (previousCategoria) {
         this.categorizerService.actualizarCategoria(previousCategoria.id, previousCategoria, this.idProy).subscribe({
           next: () => console.log(`Idea ${idea.id} eliminada de la categoría ${previousCategoria.id} en backend.`),
