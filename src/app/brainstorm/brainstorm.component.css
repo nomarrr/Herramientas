@@ -1,108 +1,171 @@
 .brainstorm-container {
-  max-width: 400px;
+  max-width: 1200px;
   margin: 20px auto;
-  background: linear-gradient(135deg, #f5f6fa 60%, #e3eaff 100%);
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   padding: 20px;
+  background: #f8f9fa;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
   font-family: 'Segoe UI', Arial, sans-serif;
 }
 
-.ideas-list {
-  max-height: 250px;
-  overflow-y: auto;
-  margin-bottom: 15px;
+.header {
+  margin-bottom: 30px;
+}
+
+.header h3 {
+  color: #2c3e50;
+  font-size: 28px;
+  margin-bottom: 20px;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 10px;
 }
 
-.idea-bubble {
-  background: #fff;
-  color: #222;
-  padding: 12px 16px;
-  border-radius: 8px;
-  margin-bottom: 0;
-  max-width: 100%;
-  align-self: unset;
-  margin-left: 0;
-  font-size: 15px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+.icono-idea {
+  font-size: 32px;
+  margin-right: 10px;
+}
+
+.descripcion {
+  color: #495057;
+  font-size: 16px;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.ideas-section {
+  padding: 20px;
+  margin-bottom: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border: 1px solid #e9ecef;
+}
+
+.ideas-section h3 {
+  color: #2c3e50;
+  font-size: 18px;
+  margin-bottom: 15px;
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  align-items: center;
   gap: 8px;
-  border: 1px solid #e0e0e0;
+}
+
+.contador {
+  background: #e9ecef;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  color: #495057;
+  margin-left: auto;
+}
+
+.ideas-list {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-bottom: 15px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 15px;
+}
+
+.idea-bubble {
+  background: white;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  border: 1px solid #e9ecef;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.idea-bubble:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .idea-content {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
 }
 
 .idea-text {
   font-size: 15px;
+  color: #2c3e50;
   line-height: 1.4;
+  word-break: break-word;
+  margin-bottom: 8px;
 }
 
-.idea-meta {
-  display: flex;
-  gap: 12px;
-  font-size: 12px;
-  color: #666;
-}
-
-.idea-author {
-  font-weight: 500;
-}
-
-.idea-date {
-  color: #888;
-}
 
 .idea-actions {
   display: flex;
-  gap: 4px;
-  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 8px;
 }
 
 .input-area {
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border: 1px solid #e9ecef;
   display: flex;
-  gap: 8px;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .input-area input {
-  flex: 1;
-  padding: 8px 12px;
+  width: 100%;
+  padding: 12px 16px;
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #dee2e6;
   outline: none;
   font-size: 15px;
+  transition: border-color 0.2s;
+}
+
+.input-area input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
 }
 
 .input-area button {
-  background: #0084ff;
+  background: #007bff;
   color: white;
   border: none;
   border-radius: 8px;
-  padding: 8px 16px;
+  padding: 12px 24px;
   cursor: pointer;
   font-size: 15px;
-  transition: background 0.2s;
+  font-weight: 500;
+  transition: all 0.2s;
+  align-self: flex-end;
+}
+
+.input-area button:hover:not(:disabled) {
+  background: #0056b3;
+  transform: translateY(-1px);
 }
 
 .input-area button:disabled {
-  background: #b0c4de;
+  background: #6c757d;
   cursor: not-allowed;
+  transform: none;
 }
 
 .counter {
-  text-align: right;
-  font-size: 13px;
-  color: #888;
-  margin-top: 5px;
+  text-align: center;
+  font-size: 14px;
+  color: #495057;
+  margin-top: 10px;
+  padding: 8px 16px;
+  background: #e9ecef;
+  border-radius: 20px;
+  display: inline-block;
 }
 
 .edit-btn, .delete-btn, .save-btn, .cancel-btn {
@@ -110,53 +173,86 @@
   border: none;
   cursor: pointer;
   font-size: 16px;
-  margin-left: 4px;
-  padding: 2px 4px;
-  transition: background 0.2s;
+  padding: 6px 8px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.edit-btn:hover { background: #e3f0ff; }
-.delete-btn:hover { background: #ffe3e3; }
-.save-btn:hover { background: #e3ffe3; }
-.cancel-btn:hover { background: #f0f0f0; }
+.edit-btn:hover { 
+  background: #e3f0ff; 
+  color: #007bff;
+}
+
+.delete-btn:hover { 
+  background: #ffe3e3; 
+  color: #dc3545;
+}
+
+.save-btn:hover { 
+  background: #e3ffe3; 
+  color: #28a745;
+}
+
+.cancel-btn:hover { 
+  background: #f0f0f0; 
+  color: #6c757d;
+}
 
 .edit-btn img,
 .delete-btn img,
 .save-btn img {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   vertical-align: middle;
   filter: grayscale(0.5);
   transition: filter 0.2s;
 }
 
-.edit-btn:hover img {
-  filter: none;
-}
-
-.delete-btn:hover img {
-  filter: none;
-}
-
+.edit-btn:hover img,
+.delete-btn:hover img,
 .save-btn:hover img {
   filter: none;
 }
 
-.descripcion {
-  color: #555;
-  font-size: 15px;
-  margin-bottom: 18px;
-}
-
 .empty-message {
-  color: #aaa;
   text-align: center;
-  font-style: italic;
-  padding: 20px 0;
+  padding: 40px 20px;
+  color: #868e96;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border: 1px dashed #dee2e6;
+  margin-top: 15px;
 }
 
-.icono-idea {
-  font-size: 40px;
-  text-align: center;
+.empty-message .icon {
+  font-size: 32px;
   margin-bottom: 10px;
+  display: block;
+}
+
+.empty-message p {
+  margin: 0;
+  font-size: 14px;
+}
+
+/* Estilos para el modo de edición */
+.idea-bubble input {
+  width: calc(100% - 32px);
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #dee2e6;
+  outline: none;
+  font-size: 15px;
+  margin-bottom: 8px;
+  background: white;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.idea-bubble input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0,123,255,0.15);
 }

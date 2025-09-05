@@ -2,7 +2,7 @@
 <div style="display: none">
     {{mensajesAgrupados | json}}
 </div>
-<div class="mensajes">
+<div class="mensajes" #mensajesContainer>
     @for (grupo of mensajesAgrupados; track grupo.fecha) {
         @if (grupo.usuario !== usuarioActual) {
             <app-grupo-a 

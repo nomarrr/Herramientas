@@ -1,52 +1,69 @@
 <div class="brainstorm-container">
-  <div class="icono-idea">💡</div>
-  <h3>Ideas de {{ nombreUsuario }}</h3>
-  <p class="descripcion">
-    Comparte tus ideas para este proyecto. Puedes agregar hasta {{ maxIdeas }} ideas.
-  </p>
-  <div class="ideas-list">
-    <div *ngIf="ideas.length === 0" class="empty-message">
-      No hay ideas aún. ¡Sé el primero en aportar!
-    </div>
-    <div *ngFor="let idea of ideas; let i = index" class="idea-bubble">
-      <ng-container *ngIf="editIndex !== i; else editBlock">
-        <div class="idea-content">
-          <div class="idea-text">{{ idea.idea }}</div>
-          <div class="idea-meta">
-            <span class="idea-author">{{ idea.nombre }}</span>
-            <span class="idea-date">{{ idea.fecha | date:'short' }}</span>
+  <div class="header">
+    <h3>
+      <span class="icono-idea">💡</span>
+      Ideas de {{ nombreUsuario }}
+    </h3>
+    <p class="descripcion">
+      Comparte tus ideas para este proyecto. Puedes agregar hasta {{ maxIdeas }} ideas.
+    </p>
+  </div>
+
+  <div class="ideas-section">
+    <h3>
+      <span class="icon">💡</span>
+      Mis Ideas
+      <span class="contador">{{ ideas.length }} / {{ maxIdeas }}</span>
+    </h3>
+    
+    <div class="ideas-list">
+      <div *ngIf="ideas.length === 0" class="empty-message">
+        <span class="icon">📝</span>
+        <p>No hay ideas aún. ¡Sé el primero en aportar!</p>
+      </div>
+      
+      <div *ngFor="let idea of ideas; let i = index" class="idea-bubble">
+        <ng-container *ngIf="editIndex !== i; else editBlock">
+          <div class="idea-content">
+            <div class="idea-text">{{ idea.idea }}</div>
           </div>
-        </div>
-        <div class="idea-actions">
-          <button class="edit-btn" (click)="startEdit(i)">
-            <img src="/img/edit.svg" alt="Editar" />
-          </button>
-          <button class="delete-btn" (click)="deleteIdea(i)">
-            <img src="/img/delete.svg" alt="Eliminar" />
-          </button>
-        </div>
-      </ng-container>
-      <ng-template #editBlock>
-        <input [(ngModel)]="editValue" maxlength="100" />
-        <button class="save-btn" (click)="saveEdit(i)">
-          <img src="/img/save.svg" alt="Guardar" />
-        </button>
-        <button class="cancel-btn" (click)="cancelEdit()">
-          Cancelar
-        </button>
-      </ng-template>
+          <div class="idea-actions">
+            <button class="edit-btn" (click)="startEdit(i)" title="Editar idea">
+              <img src="/img/edit.svg" alt="Editar" />
+            </button>
+            <button class="delete-btn" (click)="deleteIdea(i)" title="Eliminar idea">
+              <img src="/img/delete.svg" alt="Eliminar" />
+            </button>
+          </div>
+        </ng-container>
+        <ng-template #editBlock>
+          <input [(ngModel)]="editValue" maxlength="100" placeholder="Edita tu idea..." />
+          <div class="idea-actions">
+            <button class="save-btn" (click)="saveEdit(i)" title="Guardar cambios">
+              <img src="/img/save.svg" alt="Guardar" />
+            </button>
+            <button class="cancel-btn" (click)="cancelEdit()" title="Cancelar edición">
+              Cancelar
+            </button>
+          </div>
+        </ng-template>
+      </div>
     </div>
   </div>
+
   <div class="input-area">
     <input
       [(ngModel)]="newIdea"
       [disabled]="ideas.length >= maxIdeas"
       (keyup.enter)="addIdea()"
-      placeholder="Escribe tu idea..."
+      placeholder="Escribe tu idea aquí..."
       maxlength="100"
     />
-    <button (click)="addIdea()" [disabled]="ideas.length >= maxIdeas || !newIdea.trim()">Agregar</button>
+    <button (click)="addIdea()" [disabled]="ideas.length >= maxIdeas || !newIdea.trim()">
+      Agregar Idea
+    </button>
   </div>
+  
   <div class="counter">
     {{ ideas.length }} / {{ maxIdeas }} ideas
   </div>

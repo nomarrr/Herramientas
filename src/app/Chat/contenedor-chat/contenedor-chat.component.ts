@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
 import { GrupoAComponent } from '../grupo-a/grupo-a.component';
 import { GrupoBComponent } from '../grupo-b/grupo-b.component';
 import { ChatService, Mensaje } from '../../services/chat.service';
@@ -27,13 +27,16 @@ interface MensajeAgrupado {
   templateUrl: './contenedor-chat.component.html',
   styleUrl: './contenedor-chat.component.css'
 })
-export class ContenedorChatComponent implements OnInit, OnDestroy {
+export class ContenedorChatComponent implements OnInit, OnDestroy, AfterViewChecked {
+  @ViewChild('mensajesContainer', { static: false }) mensajesContainer!: ElementRef;
+  
   mensajesAgrupados: MensajeAgrupado[] = [];
   usuarioActual: string = '';
   mensajeNuevo: string = '';
   private subscription: Subscription;
   private proyectoId: number = 0;
   private usuarioId: number = 0;
+  private shouldScrollToBottom: boolean = false;
 
   constructor(
     private chatService: ChatService,
@@ -65,6 +68,13 @@ export class ContenedorChatComponent implements OnInit, OnDestroy {
     }
   }
 
+  ngAfterViewChecked() {
+    if (this.shouldScrollToBottom) {
+      this.scrollToBottom();
+      this.shouldScrollToBottom = false;
+    }
+  }
+
   cargarMensajes() {
     console.log('Llamando al servicio de mensajes...');
     this.chatService.getMensajes(this.proyectoId)
@@ -73,6 +83,7 @@ export class ContenedorChatComponent implements OnInit, OnDestroy {
           console.log('Respuesta completa:', response);
           if (response && response.mensajes) {
             this.agruparMensajes(response.mensajes);
+            this.shouldScrollToBottom = true;
           }
         },
         error: (error) => {
@@ -138,6 +149,17 @@ export class ContenedorChatComponent implements OnInit, OnDestroy {
         mensajes: [mensaje.texto],
         fecha: mensaje.fecha
       });
+    }
+    
+    this.shouldScrollToBottom = true;
+  }
+
+  private scrollToBottom(): void {
+    if (this.mensajesContainer) {
+      setTimeout(() => {
+        const element = this.mensajesContainer.nativeElement;
+        element.scrollTop = element.scrollHeight;
+      }, 0);
     }
   }
 }
