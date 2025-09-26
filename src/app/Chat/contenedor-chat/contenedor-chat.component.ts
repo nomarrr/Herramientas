@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewChecked, Input } from '@angular/core';
 import { GrupoAComponent } from '../grupo-a/grupo-a.component';
 import { GrupoBComponent } from '../grupo-b/grupo-b.component';
 import { ChatService, Mensaje } from '../../services/chat.service';
@@ -29,6 +29,9 @@ interface MensajeAgrupado {
 })
 export class ContenedorChatComponent implements OnInit, OnDestroy, AfterViewChecked {
   @ViewChild('mensajesContainer', { static: false }) mensajesContainer!: ElementRef;
+  
+  @Input() titulo: string = 'Chat del Proyecto';
+  @Input() descripcion: string = 'Comparte ideas y colabora con tu equipo en tiempo real.';
   
   mensajesAgrupados: MensajeAgrupado[] = [];
   usuarioActual: string = '';
