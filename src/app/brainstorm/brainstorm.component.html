@@ -2,10 +2,10 @@
   <div class="header">
     <h3>
       <span class="icono-idea">💡</span>
-      Ideas de {{ nombreUsuario }}
+      {{ titulo }}
     </h3>
     <p class="descripcion">
-      Comparte tus ideas para este proyecto. Puedes agregar hasta {{ maxIdeas }} ideas.
+      {{ descripcion }}
     </p>
   </div>
 
@@ -31,7 +31,7 @@
             <button class="edit-btn" (click)="startEdit(i)" title="Editar idea">
               <img src="/img/edit.svg" alt="Editar" />
             </button>
-            <button class="delete-btn" (click)="deleteIdea(i)" title="Eliminar idea">
+            <button class="delete-btn" (click)="deleteIdea(i)" [disabled]="!puedeEliminarIdeas" title="Eliminar idea">
               <img src="/img/delete.svg" alt="Eliminar" />
             </button>
           </div>
@@ -54,17 +54,21 @@
   <div class="input-area">
     <input
       [(ngModel)]="newIdea"
-      [disabled]="ideas.length >= maxIdeas"
+      [disabled]="!puedeAgregarIdeas"
       (keyup.enter)="addIdea()"
       placeholder="Escribe tu idea aquí..."
       maxlength="100"
     />
-    <button (click)="addIdea()" [disabled]="ideas.length >= maxIdeas || !newIdea.trim()">
+    <button (click)="addIdea()" [disabled]="!puedeAgregarIdeas || !newIdea.trim()">
       Agregar Idea
     </button>
   </div>
   
   <div class="counter">
     {{ ideas.length }} / {{ maxIdeas }} ideas
+  </div>
+  
+  <div *ngIf="mensajeValidacion" class="validation-message">
+    {{ mensajeValidacion }}
   </div>
 </div>

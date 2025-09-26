@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BrainstormService, BrainstormIdea } from '../services/brainstorm.service';
@@ -13,8 +13,12 @@ import { Router } from '@angular/router';
   styleUrl: './brainstorm.component.css'
 })
 export class BrainstormComponent implements OnInit {
+  @Input() titulo: string = 'Ideas del Proyecto';
+  @Input() descripcion: string = 'Comparte tus ideas para este proyecto. Puedes agregar ideas.';
+  @Input() minIdeas: number = 3;
+  @Input() maxIdeas: number = 5;
+  
   ProjectName: string = 'Proyecto';
-  maxIdeas: number = 5;
   idProy: number = 0;
   idUsuario: number = 0;
   nombreUsuario: string = '';
@@ -165,5 +169,24 @@ export class BrainstormComponent implements OnInit {
   cancelEdit() {
     this.editIndex = null;
     this.editValue = '';
+  }
+
+  // Métodos para validación
+  get puedeAgregarIdeas(): boolean {
+    return this.ideas.length < this.maxIdeas;
+  }
+
+  get puedeEliminarIdeas(): boolean {
+    return this.ideas.length > this.minIdeas;
+  }
+
+  get mensajeValidacion(): string {
+    if (this.ideas.length >= this.maxIdeas) {
+      return `Has alcanzado el máximo de ${this.maxIdeas} ideas.`;
+    }
+    if (this.ideas.length < this.minIdeas) {
+      return `Necesitas al menos ${this.minIdeas} ideas.`;
+    }
+    return '';
   }
 }
